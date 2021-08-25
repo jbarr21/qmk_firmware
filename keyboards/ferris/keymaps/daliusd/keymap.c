@@ -141,13 +141,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMB] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     RESET   ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,                          XXXXXXX ,KC_1    ,KC_2    ,KC_3    ,XXXXXXX ,
+     RESET   ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,                          KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          XXXXXXX ,KC_4    ,KC_5    ,KC_6    ,XXXXXXX ,
+     K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,K_LT_OB ,K_LT_CB ,UC_MOD  ,                          XXXXXXX ,KC_7    ,KC_8    ,KC_9    ,XXXXXXX ,
+     KC_DELT ,KC_BSPC ,K_LT_OB ,K_LT_CB ,UC_MOD  ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     XXXXXXX ,    _______ ,        _______ ,    KC_0
+                                     XXXXXXX ,    _______ ,        _______ ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
