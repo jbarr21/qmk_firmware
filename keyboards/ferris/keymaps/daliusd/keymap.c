@@ -12,6 +12,7 @@
 #define _NUMB 3
 #define _TMUX 4
 #define _MOUSE 5
+#define _MISC 6
 
 enum custom_keycodes {
   TM_NEXT = SAFE_RANGE,
@@ -34,6 +35,7 @@ enum custom_keycodes {
 #define L_NUMB      MO(_NUMB)
 #define L_TMUX      MO(_TMUX)
 #define L_MOUSE     TG(_MOUSE)
+#define L_MISC      MO(_MISC)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
 
@@ -129,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_TILDE,XXXXXXX ,KC_BRID ,KC_BRIU ,L_TMUX  ,                          XXXXXXX ,KC_PGDN ,KC_PGUP ,KC_PSCR ,K_PRINT ,
+     KC_TILDE,XXXXXXX ,KC_LSFT ,XXXXXXX ,L_TMUX  ,                          L_MISC  ,KC_PGDN ,KC_PGUP ,KC_PSCR ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,OS_GUI  ,OS_CTRL ,OS_ALT  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,KC_MPLY ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
@@ -141,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMB] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     RESET   ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,                          KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,
+     XXXXXXX ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,                          KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
@@ -173,7 +175,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      KC_BTN1 ,    KC_BTN2 ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
-  )
+  ),
+
+  [_MISC] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
+     RESET   ,XXXXXXX ,XXXXXXX ,KC_BRID ,KC_BRIU ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
+                                     XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
+  //                                └────────┘   └────────┘       └────────┘   └────────┘
+  ),
 };
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
