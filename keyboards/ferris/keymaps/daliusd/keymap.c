@@ -191,6 +191,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+const uint16_t PROGMEM combo_as[] = {KC_A, KC_S, COMBO_END};
+const uint16_t PROGMEM combo_asd[] = {KC_A, KC_S, KC_D, COMBO_END};
+
+const uint16_t PROGMEM combo_sd[] = {KC_S, KC_D, COMBO_END};
+const uint16_t PROGMEM combo_sf[] = {KC_S, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_we[] = {KC_W, KC_E, COMBO_END};
+const uint16_t PROGMEM combo_wr[] = {KC_W, KC_R, COMBO_END};
+
+const uint16_t PROGMEM combo_sef[] = {KC_S, KC_E, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_ms_lur[] = {KC_MS_L, KC_MS_U, KC_MS_R, COMBO_END};
+
+const uint16_t PROGMEM combo_er[] = {KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM combo_df[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_cv[] = {KC_C, KC_V, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(combo_as, KC_TAB),
+    COMBO(combo_asd, LGUI(KC_TAB)),
+    COMBO(combo_sd, OSM(MOD_LGUI)),
+    COMBO(combo_sf, OSM(MOD_LCTL)),
+    COMBO(combo_we, OSM(MOD_LALT)),
+    COMBO(combo_wr, OSM(MOD_LSFT)),
+    COMBO(combo_sef, L_MOUSE),
+    COMBO(combo_ms_lur, L_MOUSE),
+    COMBO(combo_er, OSL(_TMUX)),
+    COMBO(combo_df, KC_ENT),
+    COMBO(combo_cv, KC_BSPC),
+};
+
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
