@@ -27,6 +27,8 @@ enum custom_keycodes {
   OS_ALT,
   OS_GUI,
   OS_SFT,
+  OS_TMUX,
+  OS_MISC,
 };
 
 // Shortcut to make keymap more readable
@@ -34,9 +36,7 @@ enum custom_keycodes {
 #define L_SYM       MO(_SYMB)
 #define L_NAV       MO(_NAV)
 #define L_NUMB      MO(_NUMB)
-#define L_TMUX      MO(_TMUX)
 #define L_MOUSE     TG(_MOUSE)
-#define L_MISC      MO(_MISC)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
 
@@ -132,11 +132,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_TILDE,XXXXXXX ,OS_SFT  ,XXXXXXX ,L_TMUX  ,                          L_MISC  ,KC_PGDN ,KC_PGUP ,KC_PSCR ,K_PRINT ,
+     KC_TILDE,XXXXXXX ,OS_SFT  ,XXXXXXX ,OS_TMUX ,                          OS_MISC ,KC_PGDN ,KC_PGUP ,KC_PSCR ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,OS_GUI  ,OS_CTRL ,OS_ALT  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,KC_MPLY ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,L_MOUSE ,KC_VOLD ,KC_VOLU ,KC_MNXT ,
+     KC_DELT ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_VOLD ,KC_VOLU ,KC_MNXT ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_WH_D ,                          XXXXXXX ,KC_LALT ,KC_LCTL ,KC_LGUI ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,L_MOUSE ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      KC_BTN1 ,    KC_BTN2 ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -191,33 +191,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-const uint16_t PROGMEM combo_as[] = {KC_A, KC_S, COMBO_END};
-const uint16_t PROGMEM combo_asd[] = {KC_A, KC_S, KC_D, COMBO_END};
 
-const uint16_t PROGMEM combo_sd[] = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM combo_sf[] = {KC_S, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_we[] = {KC_W, KC_E, COMBO_END};
-const uint16_t PROGMEM combo_wr[] = {KC_W, KC_R, COMBO_END};
-
-const uint16_t PROGMEM combo_sef[] = {KC_S, KC_E, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_ms_lur[] = {KC_MS_L, KC_MS_U, KC_MS_R, COMBO_END};
-
-const uint16_t PROGMEM combo_er[] = {KC_E, KC_R, COMBO_END};
-const uint16_t PROGMEM combo_df[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_cv[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM combo_sdf[] = {KC_S, KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM combo_ms_ldr[] = {KC_MS_L, KC_MS_D, KC_MS_R, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo_as, KC_TAB),
-    COMBO(combo_asd, LGUI(KC_TAB)),
-    COMBO(combo_sd, OSM(MOD_LGUI)),
-    COMBO(combo_sf, OSM(MOD_LCTL)),
-    COMBO(combo_we, OSM(MOD_LALT)),
-    COMBO(combo_wr, OSM(MOD_LSFT)),
-    COMBO(combo_sef, L_MOUSE),
-    COMBO(combo_ms_lur, L_MOUSE),
-    COMBO(combo_er, OSL(_TMUX)),
-    COMBO(combo_df, KC_ENT),
-    COMBO(combo_cv, KC_BSPC),
+    COMBO(combo_sdf, L_MOUSE),
+    COMBO(combo_ms_ldr, L_MOUSE),
 };
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
@@ -226,6 +206,7 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
     case L_SYM:
     case L_NAV:
+    case KC_ESC:
         return true;
     default:
         return false;
@@ -241,6 +222,8 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case OS_ALT:
     case OS_GUI:
     case OS_SFT:
+    case OS_TMUX:
+    case OS_MISC:
         return true;
     default:
         return false;
@@ -251,6 +234,8 @@ oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 oneshot_state os_sft_state = os_up_unqueued;
+oneshot_state os_tmux_state = os_up_unqueued;
+oneshot_state os_misc_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     update_oneshot(
@@ -269,6 +254,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &os_sft_state, KC_LSFT, OS_SFT,
         keycode, record
     );
+    if (!update_oneshot_layer(
+        &os_tmux_state, _TMUX, OS_TMUX,
+        keycode, record
+    )) {
+        return false;
+    };
+    if (!update_oneshot_layer(
+        &os_misc_state, _MISC, OS_MISC,
+        keycode, record
+    )) {
+        return false;
+    };
 
     switch (keycode) {
         case TM_LEFT:
