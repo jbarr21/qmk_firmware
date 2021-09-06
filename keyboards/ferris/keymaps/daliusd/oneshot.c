@@ -96,7 +96,9 @@ bool update_oneshot_layer(
                 return false;
             }
         } else {
-            if (!is_oneshot_ignored_key(keycode)) {
+            // Ignore key ups from other layers
+            uint8_t key_layer = read_source_layers_cache(record->event.key);
+            if (key_layer == layer) {
                 // On non-ignored keyup, consider the oneshot used.
                 switch (*state) {
                 case os_down_unused:
