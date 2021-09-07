@@ -1,3 +1,4 @@
+#include "print.h"
 #include "oneshot.h"
 
 void update_oneshot(
@@ -70,6 +71,7 @@ bool update_oneshot_layer(
                 layer_on(layer);
             }
             *state = os_down_unused;
+            dprintf("trigger down (on?), layer: %d, ? -> os_down_unused\n", layer);
             return false;
         } else {
             // Trigger keyup
@@ -77,11 +79,13 @@ bool update_oneshot_layer(
             case os_down_unused:
                 // If we didn't use the layer while trigger was held, queue it.
                 *state = os_up_queued;
+                dprintf("trigger up, layer: %d, os_down_unused -> os_up_queued\n", layer);
                 return false;
             case os_down_used:
                 // If we did use the layer while trigger was held, turn off it.
                 *state = os_up_unqueued;
                 layer_off(layer);
+                dprintf("trigger up (off), layer: %d, os_down_used -> os_up_unqueued\n", layer);
                 return false;
             default:
                 break;
@@ -93,7 +97,20 @@ bool update_oneshot_layer(
                 // Cancel oneshot on designated cancel keydown.
                 *state = os_up_unqueued;
                 layer_off(layer);
+                dprintf("cancel (off), layer: %d, ? -> os_up_unqueued\n", layer);
                 return false;
+            }
+            uint8_t key_layer = read_source_layers_cache(record->event.key);
+            if (key_layer == layer) {
+                // On non-ignored keyup, consider the oneshot used.
+                switch (*state) {
+                case os_down_unused:
+                    *state = os_down_used;
+                    dprintf("key up, layer: %d, os_down_unused -> os_down_used\n", layer);
+                    return true;
+                default:
+                    break;
+                }
             }
         } else {
             // Ignore key ups from other layers
@@ -101,13 +118,11 @@ bool update_oneshot_layer(
             if (key_layer == layer) {
                 // On non-ignored keyup, consider the oneshot used.
                 switch (*state) {
-                case os_down_unused:
-                    *state = os_down_used;
-                    return false;
                 case os_up_queued:
                     *state = os_up_unqueued;
                     layer_off(layer);
-                    return false;
+                    dprintf("key up (off), layer: %d, os_up_queued -> os_up_unqueued\n", layer);
+                    return true;
                 default:
                     break;
                 }

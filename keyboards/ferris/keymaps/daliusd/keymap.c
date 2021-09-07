@@ -7,12 +7,13 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _SYMB 1
+#define _SYM 1
 #define _NAV 2
 #define _NUMB 3
-#define _TMUX 4
-#define _MOUSE 5
-#define _MISC 6
+#define _LT 4
+#define _TMUX 5
+#define _MOUSE 6
+#define _MISC 7
 
 enum custom_keycodes {
   TM_NEXT = SAFE_RANGE,
@@ -27,15 +28,16 @@ enum custom_keycodes {
   OS_ALT,
   OS_GUI,
   OS_SFT,
+  OS_SYM,
+  OS_NAV,
+  OS_NUMB,
+  OS_LT,
   OS_TMUX,
   OS_MISC,
 };
 
 // Shortcut to make keymap more readable
 
-#define L_SYM       MO(_SYMB)
-#define L_NAV       MO(_NAV)
-#define L_NUMB      MO(_NUMB)
 #define L_MOUSE     TG(_MOUSE)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
@@ -114,11 +116,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     L_NAV   ,    KC_SPC  ,        KC_LSFT ,    L_SYM
+                                     OS_NAV  ,    KC_SPC  ,        OS_SFT  ,    OS_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
-  [_SYMB] = LAYOUT(
+  [_SYM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
      KC_EXLM ,KC_AT   ,KC_HASH ,KC_DLR  ,KC_PERC ,                          KC_CIRC ,KC_AMPR ,KC_ASTR ,KC_LPRN ,KC_RPRN ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
@@ -126,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TILDE,KC_EQL  ,KC_LCBR ,KC_RCBR ,KC_COLN ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,K_EURO  ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     _______ ,    _______ ,        _______ ,    OS_LT
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -138,17 +140,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_DELT ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_VOLD ,KC_VOLU ,KC_MNXT ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     OS_NUMB ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
   [_NUMB] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,                          KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,
+     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,
+     KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,                          XXXXXXX ,OS_ALT  ,OS_CTRL ,OS_GUI  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,K_LT_OB ,K_LT_CB ,UC_MOD  ,                          XXXXXXX ,XXXXXXX ,KC_COMM ,KC_DOT  ,OS_SFT  ,
+     KC_DELT ,KC_BSPC ,KC_COMM ,KC_DOT  ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
+                                     _______ ,    _______ ,        _______ ,    _______
+  //                                └────────┘   └────────┘       └────────┘   └────────┘
+  ),
+
+  [_LT] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
+     XXXXXXX ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,                          XXXXXXX ,XXXXXXX ,OS_SFT  ,XXXXXXX ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+  //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
+     KC_DELT ,KC_BSPC ,K_LT_OB ,K_LT_CB ,UC_MOD  ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -204,8 +218,8 @@ combo_t key_combos[COMBO_COUNT] = {
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
-    case L_SYM:
-    case L_NAV:
+    case OS_SYM:
+    case OS_NAV:
     case KC_ESC:
         return true;
     default:
@@ -215,8 +229,8 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
 
 bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
-    case L_SYM:
-    case L_NAV:
+    case OS_SYM:
+    case OS_NAV:
     case KC_LSFT:
     case OS_CTRL:
     case OS_ALT:
@@ -234,7 +248,11 @@ oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 oneshot_state os_sft_state = os_up_unqueued;
+oneshot_state os_sym_state = os_up_unqueued;
+oneshot_state os_nav_state = os_up_unqueued;
 oneshot_state os_tmux_state = os_up_unqueued;
+oneshot_state os_numb_state = os_up_unqueued;
+oneshot_state os_lt_state = os_up_unqueued;
 oneshot_state os_misc_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -254,6 +272,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &os_sft_state, KC_LSFT, OS_SFT,
         keycode, record
     );
+    if (!update_oneshot_layer(
+        &os_sym_state, _SYM, OS_SYM,
+        keycode, record
+    )) {
+        return false;
+    };
+    if (!update_oneshot_layer(
+        &os_nav_state, _NAV, OS_NAV,
+        keycode, record
+    )) {
+        return false;
+    };
+    if (!update_oneshot_layer(
+        &os_numb_state, _NUMB, OS_NUMB,
+        keycode, record
+    )) {
+        return false;
+    };
+    if (!update_oneshot_layer(
+        &os_lt_state, _LT, OS_LT,
+        keycode, record
+    )) {
+        return false;
+    };
     if (!update_oneshot_layer(
         &os_tmux_state, _TMUX, OS_TMUX,
         keycode, record
@@ -302,8 +344,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
     return true;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _SYMB, _NAV, _NUMB);
 }
