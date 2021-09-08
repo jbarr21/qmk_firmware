@@ -272,42 +272,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &os_sft_state, KC_LSFT, OS_SFT,
         keycode, record
     );
-    if (!update_oneshot_layer(
+
+    bool handled = true;
+    handled = update_oneshot_layer(
         &os_sym_state, _SYM, OS_SYM,
         keycode, record
-    )) {
-        return false;
-    };
-    if (!update_oneshot_layer(
+    ) & handled;
+
+    handled = update_oneshot_layer(
         &os_nav_state, _NAV, OS_NAV,
         keycode, record
-    )) {
-        return false;
-    };
-    if (!update_oneshot_layer(
+    ) & handled;
+
+    handled = update_oneshot_layer(
         &os_numb_state, _NUMB, OS_NUMB,
         keycode, record
-    )) {
-        return false;
-    };
-    if (!update_oneshot_layer(
+    ) & handled;
+
+    handled = update_oneshot_layer(
         &os_lt_state, _LT, OS_LT,
         keycode, record
-    )) {
-        return false;
-    };
-    if (!update_oneshot_layer(
+    ) & handled;
+
+    handled = update_oneshot_layer(
         &os_tmux_state, _TMUX, OS_TMUX,
         keycode, record
-    )) {
-        return false;
-    };
-    if (!update_oneshot_layer(
+    ) & handled;
+
+    handled = update_oneshot_layer(
         &os_misc_state, _MISC, OS_MISC,
         keycode, record
-    )) {
-        return false;
-    };
+    ) & handled;
+
+    if (!handled) return false;
 
     switch (keycode) {
         case TM_LEFT:
