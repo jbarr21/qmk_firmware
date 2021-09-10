@@ -10,7 +10,7 @@
 #define _SYM 1
 #define _NAV 2
 #define _NUMB 3
-#define _LT 4
+#define _ARROW 4
 #define _TMUX 5
 #define _MOUSE 6
 #define _MISC 7
@@ -31,7 +31,7 @@ enum custom_keycodes {
   OS_SYM,
   OS_NAV,
   OS_NUMB,
-  OS_LT,
+  OS_ARROW,
   OS_TMUX,
   OS_MISC,
 };
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NAV  ,    KC_SPC  ,        OS_SFT  ,    OS_SYM
+                                     OS_NAV  ,    OS_NUMB ,        KC_SPC  ,    OS_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TILDE,KC_EQL  ,KC_LCBR ,KC_RCBR ,KC_COLN ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,K_EURO  ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    OS_LT
+                                     _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -138,31 +138,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,OS_GUI  ,OS_CTRL ,OS_ALT  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,KC_MPLY ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_VOLD ,KC_VOLU ,KC_MNXT ,
+     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_SPC  ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_VOLD ,KC_VOLU ,KC_MNXT ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NUMB ,    _______ ,        _______ ,    _______
+                                     OS_ARROW,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
   [_NUMB] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                          XXXXXXX ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,                          XXXXXXX ,OS_ALT  ,OS_CTRL ,OS_GUI  ,XXXXXXX ,
+     KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,                          K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_COMM ,KC_DOT  ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     KC_DELT ,KC_BSPC ,KC_COMM ,KC_DOT  ,OS_SFT  ,                          XXXXXXX ,XXXXXXX ,K_LT_OB ,K_LT_CB ,UC_MOD  ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     _______ ,    OS_SFT  ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
-  [_LT] = LAYOUT(
+  [_ARROW] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,K_LT_S  ,K_LT_U1 ,K_LT_U2 ,K_LT_Z  ,                          XXXXXXX ,XXXXXXX ,OS_SFT  ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,KC_HOME ,KC_UP   ,KC_END  ,KC_PGUP ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RIGHT,KC_PGDN ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,K_LT_OB ,K_LT_CB ,UC_MOD  ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -220,7 +220,17 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
     case OS_SYM:
     case OS_NAV:
-    case KC_ESC:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool is_oneshot_layer_cancel_key(uint16_t keycode) {
+    switch (keycode) {
+    case OS_SYM:
+    case OS_NAV:
+    case OS_NUMB:
         return true;
     default:
         return false;
@@ -231,13 +241,26 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
     case OS_SYM:
     case OS_NAV:
-    case KC_LSFT:
     case OS_CTRL:
     case OS_ALT:
     case OS_GUI:
     case OS_SFT:
+    case OS_NUMB:
+    case OS_ARROW:
     case OS_TMUX:
     case OS_MISC:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool is_oneshot_mod_key(uint16_t keycode) {
+    switch (keycode) {
+    case OS_CTRL:
+    case OS_ALT:
+    case OS_GUI:
+    case OS_SFT:
         return true;
     default:
         return false;
@@ -252,7 +275,7 @@ oneshot_state os_sym_state = os_up_unqueued;
 oneshot_state os_nav_state = os_up_unqueued;
 oneshot_state os_tmux_state = os_up_unqueued;
 oneshot_state os_numb_state = os_up_unqueued;
-oneshot_state os_lt_state = os_up_unqueued;
+oneshot_state os_arrow_state = os_up_unqueued;
 oneshot_state os_misc_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -290,7 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     ) & handled;
 
     handled = update_oneshot_layer(
-        &os_lt_state, _LT, OS_LT,
+        &os_arrow_state, _ARROW, OS_ARROW,
         keycode, record
     ) & handled;
 
