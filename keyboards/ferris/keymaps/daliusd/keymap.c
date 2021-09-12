@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NAV  ,    OS_NUMB ,        KC_SPC  ,    OS_SYM
+                                     OS_NAV  ,    KC_SPC  ,        OS_SFT  ,    OS_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -128,19 +128,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TILDE,KC_EQL  ,KC_LCBR ,KC_RCBR ,KC_COLN ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,K_EURO  ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    _______ ,        _______ ,    _______
+                                     OS_NUMB ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
   [_NAV] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     KC_TILDE,XXXXXXX ,OS_SFT  ,XXXXXXX ,OS_TMUX ,                          OS_MISC ,KC_PGDN ,KC_PGUP ,KC_PSCR ,K_PRINT ,
+     KC_TILDE,L_MOUSE ,OS_SFT  ,OS_MISC ,OS_TMUX ,                          KC_HOME ,KC_PGDN ,KC_PGUP ,KC_END  ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,OS_GUI  ,OS_CTRL ,OS_ALT  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,KC_MPLY ,
+     KC_TAB  ,OS_GUI  ,OS_CTRL ,OS_ALT  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_ESC  ,KC_SPC  ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,KC_VOLD ,KC_VOLU ,KC_MNXT ,
+     KC_DELT ,KC_BSPC ,KC_ESC  ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_ARROW,    _______ ,        _______ ,    _______
+                                     OS_NUMB ,    OS_ARROW,        _______ ,    OS_NUMB
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -150,9 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,                          K_LT_A  ,K_LT_C  ,K_LT_E1 ,K_LT_E2 ,K_LT_I  ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_COMM ,KC_DOT  ,OS_SFT  ,                          XXXXXXX ,XXXXXXX ,K_LT_OB ,K_LT_CB ,UC_MOD  ,
+     KC_DELT ,KC_BSPC ,KC_COMM ,KC_DOT  ,OS_SFT  ,                          XXXXXXX ,XXXXXXX ,K_LT_OB ,K_LT_CB ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    OS_SFT  ,        _______ ,    _______
+                                     OS_NAV  ,    _______ ,        _______ ,    OS_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -182,9 +182,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     XXXXXXX ,XXXXXXX ,KC_MS_U ,XXXXXXX ,KC_WH_U ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,L_MOUSE ,KC_MS_U ,KC_BTN3 ,KC_WH_U ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_WH_D ,                          XXXXXXX ,KC_LALT ,KC_LCTL ,KC_LGUI ,XXXXXXX ,
+     XXXXXXX ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_WH_D ,                          XXXXXXX ,KC_LALT ,KC_LCTL ,KC_LGUI ,KC_ESC  ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
@@ -194,24 +194,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MISC] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┐                         ┌────────┬────────┬────────┬────────┬────────┐
-     RESET   ,XXXXXXX ,XXXXXXX ,KC_BRID ,KC_BRIU ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     RESET   ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_BRID ,KC_BRIU ,XXXXXXX ,KC_PSCR ,K_PRINT ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,DEBUG   ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,DEBUG   ,XXXXXXX ,XXXXXXX ,                          KC_MPRV ,KC_MPLY ,XXXXXXX ,KC_MNXT ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          KC_VOLD ,KC_VOLU ,XXXXXXX ,XXXXXXX ,UC_MOD  ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      XXXXXXX ,    XXXXXXX ,        XXXXXXX ,    XXXXXXX
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
-};
-
-
-const uint16_t PROGMEM combo_sdf[] = {KC_S, KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM combo_ms_ldr[] = {KC_MS_L, KC_MS_D, KC_MS_R, COMBO_END};
-
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo_sdf, L_MOUSE),
-    COMBO(combo_ms_ldr, L_MOUSE),
 };
 
 #define TMUX_PREFIX SS_DOWN(X_LCTL) "b" SS_UP(X_LCTL)
@@ -230,7 +221,6 @@ bool is_oneshot_layer_cancel_key(uint16_t keycode) {
     switch (keycode) {
     case OS_SYM:
     case OS_NAV:
-    case OS_NUMB:
         return true;
     default:
         return false;
