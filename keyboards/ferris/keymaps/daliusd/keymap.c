@@ -31,7 +31,6 @@ enum custom_keycodes {
   OS_SYM,
   OS_NAV,
   OS_NUMB,
-  OS_ARROW,
   OS_TMUX,
   OS_MISC,
 };
@@ -39,6 +38,7 @@ enum custom_keycodes {
 // Shortcut to make keymap more readable
 
 #define L_MOUSE     TG(_MOUSE)
+#define L_ARROW     TG(_ARROW)
 
 #define K_PRINT     (QK_LCTL | QK_LSFT | QK_LGUI | KC_4)
 
@@ -138,9 +138,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,OS_GUI  ,OS_CTRL ,OS_ALT  ,KC_ENT  ,                          KC_LEFT ,KC_DOWN ,KC_UP   ,KC_RIGHT,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     KC_DELT ,KC_BSPC ,KC_ESC  ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     KC_DELT ,KC_BSPC ,KC_ESC  ,XXXXXXX ,L_ARROW ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NUMB ,    OS_ARROW,        _______ ,    OS_NUMB
+                                     _______ ,    OS_NUMB ,        _______ ,    OS_NUMB
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,KC_LEFT ,KC_DOWN ,KC_RIGHT,KC_PGDN ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
-     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
+     XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,L_ARROW ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
                                      _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
@@ -235,7 +235,6 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case OS_GUI:
     case OS_SFT:
     case OS_NUMB:
-    case OS_ARROW:
     case OS_TMUX:
     case OS_MISC:
         return true;
@@ -264,7 +263,6 @@ oneshot_state os_sym_state = os_up_unqueued;
 oneshot_state os_nav_state = os_up_unqueued;
 oneshot_state os_tmux_state = os_up_unqueued;
 oneshot_state os_numb_state = os_up_unqueued;
-oneshot_state os_arrow_state = os_up_unqueued;
 oneshot_state os_misc_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -298,11 +296,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     handled = update_oneshot_layer(
         &os_numb_state, _NUMB, OS_NUMB,
-        keycode, record
-    ) & handled;
-
-    handled = update_oneshot_layer(
-        &os_arrow_state, _ARROW, OS_ARROW,
         keycode, record
     ) & handled;
 
