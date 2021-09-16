@@ -28,9 +28,6 @@ enum custom_keycodes {
   OS_ALT,
   OS_GUI,
   OS_SFT,
-  OS_SYM,
-  OS_NAV,
-  OS_NUMB,
   OS_TMUX,
   OS_MISC,
   CANCEL,
@@ -38,6 +35,8 @@ enum custom_keycodes {
 
 // Shortcut to make keymap more readable
 
+#define L_NAV       MO(_NAV)
+#define L_SYM       MO(_SYM)
 #define L_MOUSE     TG(_MOUSE)
 #define L_ARROW     TG(_ARROW)
 
@@ -117,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,                          KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NAV  ,    KC_SPC  ,        OS_SFT  ,    OS_SYM
+                                     L_NAV   ,    KC_SPC  ,        OS_SFT  ,    L_SYM
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -129,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_TILDE,KC_EQL  ,KC_LCBR ,KC_RCBR ,KC_COLN ,                          KC_UNDS ,KC_QUOT ,KC_DQT  ,K_EURO  ,KC_BSLS ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NUMB ,    _______ ,        _______ ,    _______
+                                     _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -141,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_DELT ,KC_BSPC ,KC_ESC  ,CANCEL  ,L_ARROW ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     _______ ,    OS_NUMB ,        _______ ,    OS_NUMB
+                                     _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -153,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┤
      KC_DELT ,KC_BSPC ,KC_COMM ,KC_DOT  ,OS_SFT  ,                          XXXXXXX ,XXXXXXX ,K_LT_OB ,K_LT_CB ,XXXXXXX ,
   //└────────┴────────┴────────┴────┬───┴────┬───┼────────┐       ┌────────┼───┬────┴───┬────┴────────┴────────┴────────┘
-                                     OS_NAV  ,    _______ ,        _______ ,    OS_SYM
+                                     _______ ,    _______ ,        _______ ,    _______
   //                                └────────┘   └────────┘       └────────┘   └────────┘
   ),
 
@@ -219,8 +218,8 @@ bool is_oneshot_cancel_key(uint16_t keycode) {
 
 bool is_oneshot_layer_cancel_key(uint16_t keycode) {
     switch (keycode) {
-    case OS_SYM:
-    case OS_NAV:
+    case L_SYM:
+    case L_NAV:
         return true;
     default:
         return false;
@@ -229,13 +228,12 @@ bool is_oneshot_layer_cancel_key(uint16_t keycode) {
 
 bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
-    case OS_SYM:
-    case OS_NAV:
+    case L_SYM:
+    case L_NAV:
     case OS_CTRL:
     case OS_ALT:
     case OS_GUI:
     case OS_SFT:
-    case OS_NUMB:
     case OS_TMUX:
     case OS_MISC:
         return true;
@@ -260,10 +258,7 @@ oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 oneshot_state os_sft_state = os_up_unqueued;
-oneshot_state os_sym_state = os_up_unqueued;
-oneshot_state os_nav_state = os_up_unqueued;
 oneshot_state os_tmux_state = os_up_unqueued;
-oneshot_state os_numb_state = os_up_unqueued;
 oneshot_state os_misc_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -285,21 +280,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     );
 
     bool handled = true;
-    handled = update_oneshot_layer(
-        &os_sym_state, _SYM, OS_SYM,
-        keycode, record
-    ) & handled;
-
-    handled = update_oneshot_layer(
-        &os_nav_state, _NAV, OS_NAV,
-        keycode, record
-    ) & handled;
-
-    handled = update_oneshot_layer(
-        &os_numb_state, _NUMB, OS_NUMB,
-        keycode, record
-    ) & handled;
-
     handled = update_oneshot_layer(
         &os_tmux_state, _TMUX, OS_TMUX,
         keycode, record
@@ -347,4 +327,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
     }
     return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _SYM, _NAV, _NUMB);
 }
