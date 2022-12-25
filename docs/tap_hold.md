@@ -465,6 +465,57 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 
 [Auto Shift,](feature_auto_shift.md) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](feature_auto_shift.md#retro-shift) for more information.
 
+## Bilateral Combinations
+
+The last mod-tap hold will be converted to its tap keycode if another key on the same hand is tapped during the hold, unless a key on the other hand is tapped first.
+
+This option can be used to prevent accidental modifier combinations with mod-tap, in particular those caused by rollover on home row mods.  As only the last mod-tap hold is affected, it should be enabled after adjusting settings and typing style so that accidental mods happen only occasionally, e.g. with a long enough tapping term, ignore mod tap interrupt, and deliberately brief keypresses.
+
+Example:
+
+- `SFT_T(KC_A)` Down
+- wait until the tapping term expires...
+- `KC_C` Down
+- `KC_C` Up
+- `SFT_T(KC_A)` Up
+
+Assuming QWERTY layout with letters `a` and `c` configured for the same hand, this sequence will send capital letter `C`. With bilateral combination enabled, it will send `ac` to the host instead.
+
+To enable bilateral combinations, add the following to your `config.h`:
+
+```c
+#define BILATERAL_COMBINATIONS
+```
+
+If `BILATERAL_COMBINATIONS` is defined to a value, hold times greater than that value will permit same hand combinations.  For example:
+
+```c
+#define BILATERAL_COMBINATIONS 500
+```
+
+To monitor activations in the background, enable debugging, enable the console, enable terminal bell, add `#define DEBUG_ACTION` to `config.h`, and use something like the following shell command line:
+
+```sh
+hid_listen | sed -u 's/BILATERAL_COMBINATIONS: change/&\a/g'
+```
+
+### Per-key Bilateral Combinations
+
+Enable  Per-key Bilateral Combinations by adding `#define BILATERAL_COMBINATIONS_PER_KEY` to your config. Then, in your `keymap.c`, override `get_enable_bilateral_combinations_per_key` to return `false` to opt-out of bilateral enforcement for the given parameters. Or return `true` to opt-into bilateral combinations.
+
+Here is an example implementation. For the Miryoku layout, this allows `GUI+Tab` with one hand to quickly switch apps on Mac. Notice the keycode is the full layer-tap keycode, and not `KC_TAB` keycode only.
+
+```
+bool get_enable_bilateral_combinations_per_key(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+    case LT(MOUSE, KC_TAB):
+        return false;
+    default:
+        return true;
+    }
+}
+```
+
 ## Why do we include the key record for the per key functions?
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.
